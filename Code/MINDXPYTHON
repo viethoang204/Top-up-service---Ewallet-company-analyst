@@ -1,0 +1,183 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 95,
+   "id": "64919fa4-61b7-4f83-a3e0-12044156f582",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# IMPORT DICTIONARY"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 96,
+   "id": "5530bfd4-bf50-4576-99e1-0c852e9290f2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 97,
+   "id": "c6fd653e-30a5-42bf-83d9-ef47cfc4c486",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# READ CSV FILE"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 98,
+   "id": "3dc18e91-0e61-41d8-9b83-b9935a3512c3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_transactions = pd.read_csv('data.xlsx - Transactions.csv')\n",
+    "df_commission = pd.read_csv('data.xlsx - Commission.csv')\n",
+    "df_user_inf = pd.read_csv('data.xlsx - User_Inf.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "id": "c9609af5-cc5b-4edd-b513-97f455e6765d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# COVERT INTO DATAFRAME"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 100,
+   "id": "cc0a09d8-185e-4f1b-9457-4c5d969f0c88",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_transactions = pd.DataFrame(df_transactions, index = None)\n",
+    "df_commission = pd.DataFrame(df_commission, index = None)\n",
+    "df_user_inf = pd.DataFrame(df_user_inf, index = None)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "id": "e41c7d57-a4c6-46ed-a291-6b285c692e5e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# FILL THE BLANK VALUES "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 102,
+   "id": "429c8509-37e5-4ed5-b7de-fb60c54649bf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_transactions['Purchase_status'] = df_transactions[\"Purchase_status\"].fillna('Mua trực tiếp')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "id": "ed64c036-bda8-40dd-903b-6a3a6c3ffc92",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# RESTYLE THE COLUMNS"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 104,
+   "id": "5d7a186b-134d-4ca0-9b5f-49182a5665fb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_transactions['Partner_id'] = df_transactions['Partner_id'].astype('Int64')\n",
+    "df_transactions['Amount'] = pd.to_numeric(df_transactions['Amount'].str.replace(r'\\D', '', regex=True))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 105,
+   "id": "58829a32-106f-40a4-a2fe-6ff2ea9e305e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# RENAME THE COLUMNS "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 106,
+   "id": "7f89bd51-28a4-4798-a1ec-43b044af6f1a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "rename1 = df_commission.rename(columns = {'Rate_pct' : 'Rate_pct(%)'})\n",
+    "rename2 = df_transactions.rename(columns = {'Amount' : 'Amount(VND)'})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "id": "31016fe1-5538-4d7c-8ffd-298252f89210",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# SAVE "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 108,
+   "id": "dd86505a-f7f0-4d40-8f6e-230b4021d065",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_transactions.to_csv('data.xlsx - Transactions.csv')\n",
+    "df_commission.to_csv('data.xlsx - Commission.csv')\n",
+    "rename2.to_csv('data.xlsx - Transactions.csv')\n",
+    "rename1.to_csv('data.xlsx - Commission.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fbd59f4c-493c-49dd-a95c-c7170a34cca0",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
